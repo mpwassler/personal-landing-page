@@ -217,7 +217,7 @@
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Mitchel Wassler</title>
 </svelte:head>
 <div class="page">
 	<div bind:this={container} class="scene">
