@@ -10,8 +10,6 @@ phases:
   build:
     commands:
       - npx sapper export
-  post_build:
-    commands:
       - aws s3 cp --recursive --acl public-read ./__sapper__/export s3://www.mitchelwassler.com/
       # set the cache-control headers for index.html to prevent
       # browser caching
