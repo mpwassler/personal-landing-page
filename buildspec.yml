@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npx sapper export
+  post_build:
+    commands:
+      - aws s3 cp --recursive --acl public-read ./__sapper__/export s3://www.mitchelwassler.com/
+      # set the cache-control headers for index.html to prevent
+      # browser caching
+      - >
+        aws s3 cp --acl public-read
+        --cache-control="max-age=0, no-cache, no-store, must-revalidate"
+        ./__sapper__/export/index.html s3://www.mitchelwassler.com/
+artifacts:
+  files:
+    - '**/*'
+  base-directory: __sapper__/export/
